@@ -30,6 +30,7 @@ const Nav = () => {
           src="/assets/images/logo.svg"
           width={30}
           height={30}
+          alt=""
           className="object-contain"
         />
         <p className="logo_text">Promptopia</p>
@@ -52,6 +53,7 @@ const Nav = () => {
                 src={session?.user.image}
                 width={37}
                 height={37}
+                alt=""
                 className="rounded-full"
               />
             </Link>
@@ -82,6 +84,7 @@ const Nav = () => {
               width={37}
               height={37}
               className="rounded-full"
+              alt=""
               onClick={() => setToggleDropdown((prev) => !prev)}
             />
 
