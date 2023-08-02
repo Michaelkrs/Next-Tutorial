@@ -6,15 +6,30 @@ import PromptCard from "./PromptCard";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
+  const [allPosts, setAllPosts] = useState([]);
   const [posts, setPosts] = useState([]);
 
-  const handleSearchChange = (e) => {};
+  const handleSearchChange = (e) => {
+    const searchTerm = e.target.value;
+    setSearchText(searchTerm);
+
+    if (searchTerm == "") {
+      setPosts(allPosts);
+    } else {
+      const filteredPosts = allPosts.filter((post) =>
+        post.tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      setPosts(filteredPosts);
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("/api/prompt");
       const data = await response.json();
 
+      setAllPosts(data);
       setPosts(data);
     };
 
@@ -37,7 +52,11 @@ const Feed = () => {
 
   return (
     <section className="feed">
-      <form action="" className="relative w-full flex-center">
+      <form
+        action=""
+        className="relative w-full flex-center"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <input
           type="text"
           placeholder="Search for tag or username"
